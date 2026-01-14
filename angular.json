@@ -62,7 +62,8 @@
           "builder": "@angular/build:dev-server",
           "options": {
             "allowedHosts": [
-              "one01techlabs.onrender.com"
+              "one01techlabs.onrender.com",
+              "101techlabs.com"
             ]
           },
           "configurations": {
