@@ -1,59 +1,272 @@
-# 101TechLabs
+# Angular 21 – Recommended Scalable Project Structure (Hindi Guide)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
+Ye structure **enterprise / production level** Angular apps ke liye best practice hai – jisme layouts, shared components, services, static files sab clean tarike se manage hote hain.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📁 Final Folder Structure (Overview)
 
-```bash
-ng serve
+```
+src/
+ ├── app/
+ │   ├── core/
+ │   ├── shared/
+ │   ├── layouts/
+ │   ├── features/
+ │   ├── app.routes.ts
+ │   ├── app.config.ts
+ │   └── app.component.ts
+ │
+ ├── assets/
+ ├── environments/
+ ├── styles/
+ └── main.ts
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+# 1️⃣ Core Folder (App ka Engine Room)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+📁 `app/core/`
 
-```bash
-ng generate component component-name
+Yahan wo cheezein hoti hain jo **poori app me ek hi baar use hoti hain**.
+
+```
+core/
+ ├── services/
+ │    ├── auth.service.ts
+ │    ├── api.service.ts
+ │    └── storage.service.ts
+ │
+ ├── guards/
+ ├── interceptors/
+ ├── resolvers/
+ ├── models/
+ └── core.module.ts (optional)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+✅ Use for:
 
-```bash
-ng generate --help
+* Global services
+* HTTP interceptors
+* Auth guards
+* App level models
+
+❌ Feature specific services yahan mat rakho
+
+---
+
+# 2️⃣ Shared Folder (Reusable Cheezein)
+
+📁 `app/shared/`
+
+Jo cheezein **multiple modules / features me reuse hoti hain**.
+
+```
+shared/
+ ├── components/
+ │    ├── button/
+ │    ├── modal/
+ │    └── loader/
+ │
+ ├── directives/
+ ├── pipes/
+ ├── services/
+ │    └── notification.service.ts
+ │
+ ├── ui/
+ └── shared.module.ts
 ```
 
-## Building
+✅ Use for:
 
-To build the project run:
+* Common UI components
+* Pipes (date, currency etc)
+* Directives
+* Utility services
 
-```bash
-ng build
+---
+
+# 3️⃣ Layouts Folder (Main Layout System)
+
+📁 `app/layouts/`
+
+Yahan app ke **main page structures** hote hain.
+
+```
+layouts/
+ ├── main-layout/
+ │    ├── header/
+ │    ├── sidebar/
+ │    ├── footer/
+ │    └── main-layout.component.ts
+ │
+ ├── auth-layout/
+ │    └── auth-layout.component.ts
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Examples:
 
-## Running unit tests
+* Dashboard layout
+* Auth pages layout (login/register)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Routing me use hota hai:
 
-```bash
-ng test
+```
+/main → MainLayout
+/login → AuthLayout
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+# 4️⃣ Features Folder (Real Business Logic)
 
-```bash
-ng e2e
+📁 `app/features/`
+
+Har **module / page / business feature** ka apna folder.
+
+```
+features/
+ ├── dashboard/
+ │    ├── components/
+ │    ├── pages/
+ │    ├── services/
+ │    ├── dashboard.routes.ts
+ │    └── dashboard.component.ts
+ │
+ ├── users/
+ ├── products/
+ └── orders/
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Feature Services kaha jayenge?
 
-## Additional Resources
+👉 Feature ke andar hi:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+features/users/services/user.service.ts
+```
+
+✅ Isse lazy loading clean rehta hai
+
+---
+
+# 5️⃣ Assets Folder (Static Files)
+
+📁 `src/assets/`
+
+```
+assets/
+ ├── images/
+ ├── icons/
+ ├── fonts/
+ ├── json/
+ └── i18n/
+```
+
+Store here:
+
+* Images
+* Logos
+* Language files
+* Static JSON
+
+---
+
+# 6️⃣ Environments Folder
+
+📁 `src/environments/`
+
+```
+environments/
+ ├── environment.ts
+ └── environment.prod.ts
+```
+
+API URLs, keys, flags yahan hoti hain.
+
+---
+
+# 7️⃣ Styles Folder (Optional but Professional)
+
+📁 `src/styles/`
+
+```
+styles/
+ ├── _variables.scss
+ ├── _mixins.scss
+ ├── theme.scss
+ └── global.scss
+```
+
+---
+
+# 8️⃣ Routing Structure (Angular 21 style)
+
+Use **standalone routing + lazy loading**
+
+```
+app.routes.ts
+```
+
+Example:
+
+```ts
+{
+  path: '',
+  component: MainLayoutComponent,
+  loadChildren: () => import('./features/dashboard/dashboard.routes')
+}
+```
+
+---
+
+# 🧠 Service Placement Summary
+
+| Type               | Location            |
+| ------------------ | ------------------- |
+| Global API/Auth    | core/services       |
+| Reusable utilities | shared/services     |
+| Feature logic      | features/*/services |
+
+---
+
+# ✅ Best Practices
+
+✔ Use standalone components
+✔ Lazy load features
+✔ Avoid huge shared module
+✔ One feature = one folder
+✔ No business logic in shared
+✔ Keep core minimal
+
+---
+
+# 🚀 Recommended for You (Startup Project)
+
+Tumhare case me:
+
+```
+features/
+  ├── home
+  ├── services
+  ├── company
+  ├── contact
+  └── blog
+```
+
+Layouts:
+
+* MainLayout
+* AuthLayout
+
+---
+
+Agar chaho to main:
+
+✅ Real project folder tree bana deta hoon
+✅ GitHub style structure
+✅ Sample repo layout
+✅ Diagram
+
+Bas bolo 👍

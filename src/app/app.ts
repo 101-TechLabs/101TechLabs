@@ -8,5 +8,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('101TechLabs');
+  email = 'hello@101techlabs.com';
+
+  handleEmailClick() {
+    navigator.clipboard.writeText(this.email);
+    window.location.href = `mailto:${this.email}`;
+  }
+
 }
