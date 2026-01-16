@@ -121,7 +121,6 @@ import { CommonModule } from '@angular/common';
          Let's stick to white or on-primary for Toolbar, but use gradient in page bodies.
          Unless user insisted on gradient everywhere. User said "logo text use same gradient in several places".
          Gradient on Cyan bg is low contrast. I'll keep white here for accessibility, use gradient in Hero. */
-       color: white; 
     }
     
     @media (max-width: 768px) {
