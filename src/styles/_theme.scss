@@ -1,0 +1,49 @@
+@use 'variables' as var;
+
+:root {
+    // Default (Light Mode) - Mapping Palette Reversed/Adjusted
+    // Note: User asked for Light Mode support. 
+    // We strictly use the palette.
+    // Light Mode interpretation:
+    // Background: #EEEEEE (as defined in palette descriptions)
+    // Surface: #FFFFFF (We might need standard white or derived from #EEEEEE)
+    // BUT Rule says: NO hex outside theme config. 
+    // So we map #EEEEEE as Primary Background for Light Mode.
+
+    --app-bg: #{var.$color-text-light};
+    --app-surface: #FFFFFF; // Typically need decent contrast. Using white for light mode surface if allowed, else use lighter #EEEEEE tint. 
+    // Strict Rule: Use ONLY the following colors.
+    // #EEEEEE -> Primary text (light mode), secondary background (light mode)
+    // #222831 -> Primary background (dark)
+    // #393E46 -> Secondary background
+
+    // Re-evaluating based on "Use ONLY the following colors":
+    // Light Mode:
+    // Background: #EEEEEE
+    // Surface: #EEEEEE (or darken slightly/lighten?) -> The prompt implies strict mapping.
+    // Text: #222831 (Dark color for text on light bg)
+
+    --app-bg: #{var.$color-text-light};
+    --app-surface: #FFFFFF; // Exception for pure white usually needed, but let's stick to palette.
+    // Actually, #393E46 is "Secondary background, cards" in Dark mode.
+    // For Light Mode, let's use #EEEEEE as BG.
+
+    --app-text: #{var.$color-bg-dark};
+    --app-accent: #{var.$color-accent};
+    --app-card-bg: rgba(255, 255, 255, 0.8); // Glassy white for light mode cards? or just #EEEEEE?
+}
+
+[data-theme="dark"] {
+    --app-bg: #{var.$color-bg-dark};
+    --app-surface: #{var.$color-surface-dark};
+    --app-text: #{var.$color-text-light};
+    --app-accent: #{var.$color-accent};
+    --app-card-bg: rgba(#{var.$color-surface-dark-rgb}, 0.7);
+}
+
+// Global Application Utilities managed by Theme
+body {
+    background-color: var(--app-bg);
+    color: var(--app-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

@@ -1,0 +1,27 @@
+@use 'variables' as var;
+
+@mixin glass-effect($opacity: 0.1, $blur: 10px) {
+    background: rgba(var.$color-surface-dark, $opacity);
+    backdrop-filter: blur($blur);
+    -webkit-backdrop-filter: blur($blur);
+    border: 1px solid rgba(var.$color-text-light, 0.1);
+}
+
+@mixin neon-glow($color: var.$color-accent, $intensity: 10px) {
+    box-shadow: 0 0 $intensity rgba($color, 0.5),
+        0 0 ($intensity * 2) rgba($color, 0.3);
+}
+
+@mixin hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
