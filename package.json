@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng.js serve",
-    "start:server": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng.js serve --host 0.0.0.0 --port 4200",
-    "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng.js build",
-    "watch": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng.js build --watch --configuration development",
-    "test": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng.js test"
+    "start": "node --max_old_space_size=384 ./node_modules/@angular/cli/bin/ng.js serve",
+    "start:server": "node --max_old_space_size=384 ./node_modules/@angular/cli/bin/ng.js serve --host 0.0.0.0 --port 4200 --source-map=false --vendor-chunk=false",
+    "build": "node --max_old_space_size=384 ./node_modules/@angular/cli/bin/ng.js build --configuration production",
+    "watch": "node --max_old_space_size=384 ./node_modules/@angular/cli/bin/ng.js build --watch --configuration development",
+    "test": "node --max_old_space_size=384 ./node_modules/@angular/cli/bin/ng.js test"
   },
   "prettier": {
     "printWidth": 100,
