@@ -46,3 +46,67 @@ body {
   margin-right: 12px;
   vertical-align: middle;
 }
+
+/* =========================
+   GLOBAL SCROLLBAR STYLE
+========================= */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,
+      rgba(120, 120, 120, 0.6),
+      rgba(80, 80, 80, 0.8));
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg,
+      rgba(160, 160, 160, 0.9),
+      rgba(120, 120, 120, 1));
+}
+
+/* =========================
+   MAIN CONTENT SCROLLBAR
+========================= */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg,
+      var(--mat-sys-primary),
+      var(--mat-sys-secondary));
+  opacity: 0.7;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
+}
+
+/* =========================
+   FIREFOX SUPPORT
+========================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(120, 120, 120, 0.8) transparent;
+}
+
+/* =========================
+   SMOOTH SCROLL FEEL
+========================= */
+html {
+  scroll-behavior: smooth;
+}
