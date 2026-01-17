@@ -12,39 +12,11 @@ import { RouterLink } from '@angular/router';
     <div class="container">
       <header class="hero">
         <img src="icon.png" alt="Logo" class="hero-logo">
-        <h1 class="title">Welcome to <span class="text-gradient">101TechLabs</span></h1>
-        <p class="subtitle">Building the future with <span class="text-gradient">Angular</span></p>
+        <h1 class="title">Welcome to <span>101<span class="text-gradient">TechLabs</span></span></h1>
+        <p class="subtitle">Turning ideas into powerful digital products</p>
+        <p class="subtitle2">Where innovation meets reliable engineering</p>
         <button mat-raised-button color="primary" routerLink="/portfolio">View Our Work</button>
       </header>
-
-      <section class="features">
-        <mat-card class="feature-card">
-          <mat-card-header>
-            <mat-card-title class="text-gradient">Modern Tech Stack</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>We use the latest Angular features and robust architecture.</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="feature-card">
-          <mat-card-header>
-            <mat-card-title class="text-gradient">Scalable Solutions</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>Designed to grow with your business needs.</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="feature-card">
-          <mat-card-header>
-            <mat-card-title class="text-gradient">Responsive Design</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>Looks great on all devices, from mobile to desktop.</p>
-          </mat-card-content>
-        </mat-card>
-      </section>
     </div>
   `,
   styles: [`
@@ -70,6 +42,11 @@ import { RouterLink } from '@angular/router';
     }
     .subtitle {
       font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--mat-sys-on-surface-variant);
+    }
+    .subtitle2 {
+      font-size: 1rem;
       margin-bottom: 2rem;
       color: var(--mat-sys-on-surface-variant);
     }

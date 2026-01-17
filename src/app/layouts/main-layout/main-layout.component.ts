@@ -27,12 +27,12 @@ import { CommonModule } from '@angular/common';
       <mat-toolbar color="primary" class="toolbar">
         <div class="brand-container" routerLink="/" style="cursor: pointer;">
           <img src="icon.png" alt="101TechLabs Logo" class="brand-icon">
-          <span class="brand-text">101TechLabs</span>
+          <span class="brand-text">101<span class="text-gradient">TechLabs</span></span>
         </div>
         
         <span class="spacer"></span>
         
-        <div class="nav-links desktop-only">
+        <div class="nav-links desktop-only disabled-nav">
           <a mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Home</a>
           <a mat-button routerLink="/about" routerLinkActive="active-link">About</a>
           <a mat-button routerLink="/portfolio" routerLinkActive="active-link">Portfolio</a>
@@ -64,7 +64,6 @@ import { CommonModule } from '@angular/common';
           <main>
             <router-outlet></router-outlet>
           </main>
-          
           <footer class="app-footer">
             <p>&copy; 2026 101TechLabs. All rights reserved.</p>
           </footer>
@@ -77,9 +76,18 @@ import { CommonModule } from '@angular/common';
       display: flex;
       flex-direction: column;
       height: 100vh;
+      .disabled-nav {
+        pointer-events: none;   
+        opacity: 0.5;           
+      }
     }
     .sidenav-container {
       flex: 1;
+    }
+    mat-sidenav-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     .spacer {
       flex: 1 1 auto;
@@ -88,39 +96,31 @@ import { CommonModule } from '@angular/common';
       background: rgba(255,255,255, 0.1);
     }
     main {
-      padding: 0; 
-      min-height: 80vh;
+      flex: 1;  
+      padding: 0;
     }
     .app-footer {
-      padding: 1rem;
+      margin-top: auto;
       text-align: center;
       background: var(--mat-sys-surface-variant);
       color: var(--mat-sys-on-surface-variant);
     }
     .mobile-only { display: none; }
-
-    /* Brand Styling */
     .brand-container {
       display: flex;
       align-items: center;
     }
     .brand-icon {
-      height: 32px; /* Adjusted for Toolbar */
+      height: 32px; 
       width: auto;
       margin-right: 12px;
-      /* Add a subtle drop shadow to make icon pop on primary color if needed */
       filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
     }
     .brand-text {
       font-weight: 700;
       font-size: 1.2rem;
       letter-spacing: 0.5px;
-      /* Note: MatToolbar uses primary color (Cyan). 
-         Text is usually white (on-primary). 
-         If user wants Gradient Text HERE, on Cyan bg, it might clash.
-         Let's stick to white or on-primary for Toolbar, but use gradient in page bodies.
-         Unless user insisted on gradient everywhere. User said "logo text use same gradient in several places".
-         Gradient on Cyan bg is low contrast. I'll keep white here for accessibility, use gradient in Hero. */
+      display: inline-block;
     }
     
     @media (max-width: 768px) {
