@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
         </div>
       </div>
     </section>
-    <div style="margin-top: -2rem;">
+    <div style="margin-top: -1rem;">
       <hr style="border: none; border-top: 2px dashed var(--mat-sys-outline);" />
     </div>
     <section class="about-section-2">
