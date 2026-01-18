@@ -143,7 +143,6 @@ import { CommonModule } from '@angular/common';
 
       .app-footer {
         text-align: center;
-        padding: 8px 0;
         background: var(--mat-sys-surface-variant);
         color: var(--mat-sys-on-surface-variant);
       }
