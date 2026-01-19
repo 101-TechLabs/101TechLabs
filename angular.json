@@ -63,7 +63,8 @@
           "options": {
             "allowedHosts": [
               "one01techlabs.onrender.com",
-              "101techlabs.com"
+              "101techlabs.com",
+              "zandra-interseptal-jazlynn.ngrok-free.dev"
             ]
           },
           "configurations": {
