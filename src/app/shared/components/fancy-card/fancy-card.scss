@@ -1,0 +1,206 @@
+.box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 30px;
+  width: 320px;
+  height: 400px;
+  transition: 0.5s;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 50%;
+    height: 100%;
+    border-radius: 8px;
+    transform: skewX(15deg);
+    transition: 0.5s;
+  }
+
+  &::after {
+    filter: blur(30px);
+  }
+
+  &:hover {
+
+    &::before,
+    &::after {
+      left: 20px;
+      width: calc(100% - 90px);
+      transform: skewX(0deg);
+    }
+
+    span::before,
+    span::after {
+      width: 100px;
+      height: 100px;
+      opacity: 1;
+    }
+
+    span::before {
+      top: -50px;
+      left: 50px;
+    }
+
+    span::after {
+      bottom: -50px;
+      right: 50px;
+    }
+
+    .content {
+      left: -25px;
+      padding: 60px 40px;
+    }
+  }
+
+  /* 🔥 Gradient Themes */
+  &.gradient-1::before,
+  &.gradient-1::after {
+    background: linear-gradient(315deg, #ffbc00, #ff0058);
+  }
+
+  &.gradient-2::before,
+  &.gradient-2::after {
+    background: linear-gradient(315deg, #03a9f4, #ff0058);
+  }
+
+  &.gradient-3::before,
+  &.gradient-3::after {
+    background: linear-gradient(315deg, #1EC9FF, #1B7CFF, #2EE6A6);
+  }
+
+  span {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: 0.5s;
+      animation: float 2s ease-in-out infinite;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    &::after {
+      animation-delay: -1s;
+    }
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 20px 40px;
+    color: #fff;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    transition: 0.5s;
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.2;
+        // max-width: 180px;
+        /* Limit width to force wrapping */
+        word-wrap: break-word;
+      }
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      height: 2.5rem;
+      width: 2.5rem;
+      flex-shrink: 0;
+      opacity: 0.9;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    a {
+      display: inline-block;
+      padding: 10px 16px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.25s;
+
+      &:hover {
+        background: #fff;
+        color: #111;
+      }
+    }
+  }
+}
+
+/* 🎨 Theme Specific Overrides */
+:host-context([data-theme='light']) .box {
+  .content {
+    color: #333 !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    border: 1px solid #333;
+
+    h2 {
+      color: #111 !important;
+    }
+
+    p {
+      color: #444 !important;
+    }
+
+    .card-icon {
+      color: #111 !important;
+      opacity: 0.8 !important;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    a {
+      color: #333 !important;
+      border-color: rgba(0, 0, 0, 0.3) !important;
+
+      &:hover {
+        background: #333 !important;
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(10px);
+  }
+
+  50% {
+    transform: translateX(-10px);
+  }
+}
