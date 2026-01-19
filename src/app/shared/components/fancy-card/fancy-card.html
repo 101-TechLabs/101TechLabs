@@ -1,0 +1,12 @@
+<div class="box" [ngClass]="'gradient-' + gradientType">
+  <span></span>
+
+  <div class="content">
+    <div class="card-header">
+      <mat-icon *ngIf="icon" class="card-icon">{{ icon }}</mat-icon>
+      <h2>{{ title }}</h2>
+    </div>
+    <p>{{ description }}</p>
+    <a [href]="buttonLink">{{ buttonText }}</a>
+  </div>
+</div>
