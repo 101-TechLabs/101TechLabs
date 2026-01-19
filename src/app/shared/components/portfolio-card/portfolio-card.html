@@ -1,0 +1,20 @@
+<div class="portfolio-card">
+  <div class="card-image" [style.background-image]="imageUrl ? 'url(' + imageUrl + ')' : 'none'">
+    <div class="category-badge">{{ category }}</div>
+    <div class="overlay">
+      <a [href]="link" target="_blank" rel="noopener noreferrer" class="view-project">
+        <mat-icon>open_in_new</mat-icon>
+        <span>View Project</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="card-content">
+    <h3 class="card-title">{{ title }}</h3>
+    <p class="card-description">{{ description }}</p>
+    
+    <div class="tags" *ngIf="tags && tags.length > 0">
+      <span class="tag" *ngFor="let tag of tags">{{ tag }}</span>
+    </div>
+  </div>
+</div>
