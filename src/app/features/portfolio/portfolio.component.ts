@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 import { PortfolioCard } from '../../shared/components/portfolio-card/portfolio-card';
 
 interface Project {
@@ -15,7 +15,7 @@ interface Project {
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [CommonModule, MatButtonToggleModule, PortfolioCard],
+  imports: [CommonModule, MatTabsModule, PortfolioCard],
   template: `
     <div class="portfolio-container">
       <div class="portfolio-header">
@@ -24,17 +24,21 @@ interface Project {
       </div>
 
       <div class="filter-section">
-        <mat-button-toggle-group 
-          [value]="selectedCategory" 
-          (change)="filterProjects($event.value)"
-          class="category-filters">
-          <mat-button-toggle value="all">All Projects</mat-button-toggle>
-          <mat-button-toggle value="Healthcare">Healthcare</mat-button-toggle>
-          <mat-button-toggle value="HRMS">HRMS</mat-button-toggle>
-          <mat-button-toggle value="E-commerce">E-commerce</mat-button-toggle>
-          <mat-button-toggle value="Photography">Photography</mat-button-toggle>
-          <mat-button-toggle value="Education">Education</mat-button-toggle>
-        </mat-button-toggle-group>
+        <mat-tab-group 
+          (selectedTabChange)="filterProjects($event.tab.textLabel)"
+          class="category-tabs"
+          centered>
+          <mat-tab label="all">
+            <ng-template mat-tab-label>
+              <span>All Projects</span>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="Healthcare"></mat-tab>
+          <mat-tab label="HRMS"></mat-tab>
+          <mat-tab label="E-commerce"></mat-tab>
+          <mat-tab label="Photography"></mat-tab>
+          <mat-tab label="Education"></mat-tab>
+        </mat-tab-group>
       </div>
 
       <div class="portfolio-grid">
@@ -83,38 +87,47 @@ interface Project {
     }
 
     .filter-section {
-      display: flex;
-      justify-content: center;
       margin-bottom: 40px;
 
-      .category-filters {
-        background: var(--mat-sys-surface-container);
-        border-radius: 30px;
-        padding: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        border: 1px solid var(--mat-sys-outline-variant);
-
+      .category-tabs {
         ::ng-deep {
-          .mat-button-toggle {
-            border: none;
-            border-radius: 24px;
-            margin: 0 4px;
+          .mat-mdc-tab-group {
+            --mdc-tab-indicator-active-indicator-color: #1B7CFF;
+            --mat-tab-header-active-label-text-color: #1B7CFF;
+          }
+
+          .mat-mdc-tab {
             font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            opacity: 0.7;
             transition: all 0.3s ease;
 
-            &.mat-button-toggle-checked {
-              background: linear-gradient(135deg, #1EC9FF, #1B7CFF);
-              color: #fff;
+            &.mdc-tab--active {
+              opacity: 1;
               
-              .mat-button-toggle-label-content {
-                color: #fff;
+              .mdc-tab__text-label {
+                background: linear-gradient(135deg, #1EC9FF, #1B7CFF);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
               }
             }
+          }
 
-            .mat-button-toggle-label-content {
-              padding: 8px 20px;
-              line-height: 1.5;
-            }
+          .mat-mdc-tab-header {
+            border-bottom: 1px solid var(--mat-sys-outline-variant);
+          }
+
+          .mat-mdc-tab-labels {
+            justify-content: center;
+          }
+
+          .mat-mdc-tab-indicator .mdc-tab-indicator__content--underline {
+            border-top-width: 3px;
+            border-radius: 3px 3px 0 0;
+            background: linear-gradient(90deg, #1EC9FF, #1B7CFF);
+            border-color: transparent;
           }
         }
       }
@@ -122,9 +135,10 @@ interface Project {
 
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 32px;
       margin-top: 40px;
+      align-items: stretch;
     }
 
     .no-results {
@@ -161,12 +175,12 @@ interface Project {
       }
 
       .filter-section {
-        .category-filters {
+        .category-tabs {
           ::ng-deep {
-            .mat-button-toggle {
-              .mat-button-toggle-label-content {
-                padding: 6px 12px;
-                font-size: 0.875rem;
+            .mat-mdc-tab {
+              .mdc-tab__text-label {
+                padding: 0 12px;
+                font-size: 0.8rem;
               }
             }
           }
@@ -181,11 +195,10 @@ interface Project {
 
     @media (max-width: 480px) {
       .filter-section {
-        overflow-x: auto;
-        justify-content: flex-start;
-        
-        .category-filters {
-          min-width: max-content;
+        .category-tabs {
+          ::ng-deep .mat-mdc-tab-header {
+            overflow-x: auto;
+          }
         }
       }
     }
@@ -196,12 +209,28 @@ export class PortfolioComponent {
 
   allProjects: Project[] = [
     {
+      title: 'CamZo Security',
+      description: 'Specialized e-commerce platform for security cameras and surveillance equipment with expert guidance and installation services.',
+      category: 'E-commerce',
+      link: 'https://chic-starburst-597c58.netlify.app/',
+      imageUrl: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80',
+      tags: ['E-commerce', 'Security', 'Technology']
+    },
+    {
       title: 'Rashtriya Swasthya Sangathan',
       description: 'A comprehensive healthcare platform providing information about health services, programs, and initiatives for public welfare.',
       category: 'Healthcare',
       link: 'https://www.rashtriyaswasthyasangathan.org/about.html',
       imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80',
       tags: ['Healthcare', 'Public Service', 'Information Portal']
+    },
+    {
+      title: 'Mr. Bhatt Productions',
+      description: 'Professional photography business website showcasing stunning portfolio, services, and booking capabilities for events and sessions.',
+      category: 'Photography',
+      link: 'https://mrbhattproduction.netlify.app',
+      imageUrl: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=80',
+      tags: ['Photography', 'Portfolio', 'Creative']
     },
     {
       title: 'HRMS Platform',
@@ -220,28 +249,12 @@ export class PortfolioComponent {
       tags: ['E-commerce', 'Shopping', 'Retail']
     },
     {
-      title: 'Mr. Bhatt Productions',
-      description: 'Professional photography business website showcasing stunning portfolio, services, and booking capabilities for events and sessions.',
-      category: 'Photography',
-      link: 'https://mrbhattproduction.netlify.app',
-      imageUrl: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&q=80',
-      tags: ['Photography', 'Portfolio', 'Creative']
-    },
-    {
       title: 'Haji Jainullah Inter College',
       description: 'Educational institution website providing comprehensive information about academics, facilities, admissions, and school activities.',
       category: 'Education',
       link: 'https://stirring-dodol-hjicpv.netlify.app/',
       imageUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       tags: ['Education', 'School', 'Information']
-    },
-    {
-      title: 'CamZo Security',
-      description: 'Specialized e-commerce platform for security cameras and surveillance equipment with expert guidance and installation services.',
-      category: 'E-commerce',
-      link: 'https://chic-starburst-597c58.netlify.app/',
-      imageUrl: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80',
-      tags: ['E-commerce', 'Security', 'Technology']
     }
   ];
 
@@ -250,7 +263,7 @@ export class PortfolioComponent {
   filterProjects(category: string) {
     this.selectedCategory = category;
 
-    if (category === 'all') {
+    if (category === 'all' || category === 'All Projects') {
       this.filteredProjects = [...this.allProjects];
     } else {
       this.filteredProjects = this.allProjects.filter(
